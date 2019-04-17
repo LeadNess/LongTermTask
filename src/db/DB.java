@@ -7,7 +7,7 @@ import base.*;
 public class DB {
 
     // Константа, в которой хранится адрес подключения
-    private static final String CON_STR = "jdbc:sqlite:D:/db.s3db";
+    private static final String CON_STR = "jdbc:sqlite:db//db.s3db";
 
     // Используем шаблон одиночка, чтобы не плодить множество
     // экземпляров класса db
@@ -22,26 +22,9 @@ public class DB {
 
     private Connection connection;
 
-    private DB() throws SQLException, java.lang.ClassNotFoundException {
+    public DB() throws SQLException, java.lang.ClassNotFoundException {
         Class.forName("org.sqlite.JDBC");
         this.connection = DriverManager.getConnection(CON_STR);
-    }
-
-    public List<Pilot> getAllPilots() {
-
-        try (Statement statement = this.connection.createStatement()) {
-            List<Pilot> pilots = new ArrayList<>();
-            ResultSet resultSet = statement.executeQuery("SELECT NAME, ACCESS FROM PILOTS");
-            while (resultSet.next()) {
-                pilots.add(new Pilot(resultSet.getString("NAME"),
-                        resultSet.getBoolean("ACCESS")));
-            }
-            return pilots;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
     }
 
     public List<Pilot> getPilotsList() {
@@ -116,11 +99,11 @@ public class DB {
         }
     }
 
-    public void changePilotAccess(String name, Boolean access) {
+    public void changePilotAccess(Pilot pilot, Boolean access) {
         try (PreparedStatement statement = this.connection.prepareStatement(
                 "UPDATE PILOTS SET ACCESS = ? WHERE NAME = ?")) {
             statement.setObject(1, access);
-            statement.setObject(2, name);
+            statement.setObject(2, pilot.getName());
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
