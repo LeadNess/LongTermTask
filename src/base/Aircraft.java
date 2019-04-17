@@ -2,37 +2,23 @@ package base;
 
 public class Aircraft {
 
-    private int sideNumber;
-    private String name;
+    private String sideNumber;
 
-    public Aircraft(int number) {
+    public Aircraft(String number) {
         this.sideNumber = number;
-        this.name = "";
     }
 
-    public Aircraft(int sideNumber, String name) {
-        this.sideNumber = sideNumber;
-        this.name = name;
-    }
-
-    public int getSideNumber() {
+    public String getSideNumber() {
         return sideNumber;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSideNumber(int sideNumber) {
+    public void setSideNumber(String sideNumber) {
         this.sideNumber = sideNumber;
     }
 
+    @Override
     public String toString() {
-        return "base.Aircraft\nSide number: " + sideNumber + "\nName: " + name;
+        return "Aircraft " + sideNumber;
     }
 
 }

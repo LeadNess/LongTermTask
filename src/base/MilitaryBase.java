@@ -4,7 +4,7 @@ import java.util.*;
 
 public class MilitaryBase {
 
-    private String baseName;
+
     private List<Pilot> pilotsList;
     private List<Aircraft> aircraftsList;
     private Map<Aircraft, Pilot> baseMap;
