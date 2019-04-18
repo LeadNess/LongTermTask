@@ -18,46 +18,73 @@ public class MilitaryBase {
         baseMap       = new HashMap<>(db.getAircraftsMap());
     }
 
-    public static void main(String[] args)
-            throws java.sql.SQLException, java.lang.ClassNotFoundException {
-        MilitaryBase base = new MilitaryBase();
+    public List<Pilot> getPilotsList() {
+        return pilotsList;
+    }
+
+    public List<Aircraft> getAircraftsList() {
+        return aircraftsList;
+    }
+
+    public Map<Aircraft, Pilot> getBaseMap() {
+        return baseMap;
     }
 
     public void grandAdmission(Pilot pilot) {
-        /*
-         * TODO: Get pilot's info
-         */
+        for(int i = 0; i < pilotsList.size(); i++)
+            if (pilotsList.get(i) == pilot)
+                pilotsList.get(i).setAccess(true);
 
         db.changePilotAccess(pilot, true);
     }
 
-    private void revokeAdmission(Pilot pilot) {
-        /*
-         * TODO: Get pilot's info
-         */
+    public void revokeAdmission(Pilot pilot) {
+        for(int i = 0; i < pilotsList.size(); i++)
+            if (pilotsList.get(i) == pilot)
+                pilotsList.get(i).setAccess(false);
 
         db.changePilotAccess(pilot, false);
     }
 
-    private void editPilotsList() {
+    public void deletePilot(Pilot pilot) {
+
+        Aircraft aircraft = null;
+        for (Aircraft air: baseMap.keySet())
+            if(baseMap.get(air).equals(pilot))
+                aircraft = air;
+
+        if(!aircraft.equals(null))
+            baseMap.replace(aircraft, pilot, null);
+
+        pilotsList.remove(pilot);
+        db.deletePilot(pilot);
+    }
+
+    public void addPilotToAircraft(Aircraft aircraft, Pilot pilot) {
         /*
          * TODO: Get pilot's info
          */
-        String name = "";
-        Pilot pilot = new Pilot(name);
+
+        baseMap.put(aircraft, pilot);
+        db.addPilotToAircraft(aircraft, pilot);
+    }
+
+    public void addPilot(Pilot pilot) {
+        /*
+         * TODO: Get pilot's info
+         */
 
         pilotsList.add(pilot);
         db.addPilot(pilot);
     }
 
-    private void editAircraftsList() {
-        /*
-         * TODO: Get aircraft's info
-         */
-        String sideNumber = "";
-        Aircraft aircraft = new Aircraft(sideNumber);
-
+    public void addAircraft(Aircraft aircraft) {
         aircraftsList.add(aircraft);
         db.addAircraft(aircraft);
+    }
+
+    public void deleteAircraft(Aircraft aircraft) {
+        aircraftsList.remove(aircraft);
+        db.deleteAircraft(aircraft);
     }
 }

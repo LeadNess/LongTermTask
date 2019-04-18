@@ -121,6 +121,16 @@ public class DB {
         }
     }
 
+    public void deleteAircraft(Aircraft aircraft) {
+        try (PreparedStatement statement = this.connection.prepareStatement(
+                "DELETE FROM BASE WHERE AIRCRAFT = ?")) {
+            statement.setObject(1, aircraft.getSideNumber());
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void addPilotToAircraft(Aircraft aircraft, Pilot pilot) {
         try (PreparedStatement statement = this.connection.prepareStatement(
                 "UPDATE BASE SET PILOT = ? WHERE AIRCRAFT = ?")) {

@@ -36,4 +36,8 @@ public class Pilot {
         return "Pilot " + name;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }
