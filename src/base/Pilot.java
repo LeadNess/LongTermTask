@@ -33,7 +33,7 @@ public class Pilot {
 
     @Override
     public String toString() {
-        return "Pilot " + name;
+        return "Pilot " + name + ", access: " + access;
     }
 
     @Override

@@ -97,6 +97,15 @@ public class DB {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        try (PreparedStatement statement = this.connection.prepareStatement(
+                "UPDATE BASE SET PILOT = ? WHERE PILOT = ?")) {
+            statement.setObject(1, null);
+            statement.setObject(2, pilot.getName());
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void changePilotAccess(Pilot pilot, Boolean access) {

@@ -53,7 +53,7 @@ public class MilitaryBase {
             if(baseMap.get(air).equals(pilot))
                 aircraft = air;
 
-        if(!aircraft.equals(null))
+        if(aircraft != null)
             baseMap.replace(aircraft, pilot, null);
 
         pilotsList.remove(pilot);
@@ -61,19 +61,16 @@ public class MilitaryBase {
     }
 
     public void addPilotToAircraft(Aircraft aircraft, Pilot pilot) {
-        /*
-         * TODO: Get pilot's info
-         */
-
         baseMap.put(aircraft, pilot);
         db.addPilotToAircraft(aircraft, pilot);
     }
 
-    public void addPilot(Pilot pilot) {
-        /*
-         * TODO: Get pilot's info
-         */
+    public void removePilotFromAircraft(Aircraft aircraft, Pilot pilot) {
+        baseMap.replace(aircraft, pilot, null);
+        db.removePilotFromAircraft(aircraft);
+    }
 
+    public void addPilot(Pilot pilot) {
         pilotsList.add(pilot);
         db.addPilot(pilot);
     }
